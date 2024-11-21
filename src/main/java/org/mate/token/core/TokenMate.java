@@ -12,6 +12,8 @@ import javax.servlet.http.Cookie;
  * @author liujinfeng
  */
 public class TokenMate {
+    public static String TOKEN_HEADER = "Token";
+    public static String SECRET = "token_mate";
 
     public static void login(String subject) {
         TokenContextHolder.getHttpServletResponse().ifPresent(httpServletResponse -> {

@@ -1,5 +1,7 @@
 package org.mate.token.context;
 
+import org.mate.token.utils.JwtUtils;
+
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
@@ -25,7 +27,7 @@ public class TokenContextHolder {
     }
 
     public static void setToken(String token) {
-        TOKEN_LOCAL.set(new TokenContext(token));
+        TOKEN_LOCAL.set(new TokenContext(token, JwtUtils.parseToken(token, "token_mate")));
     }
 
     public static void setResponse(HttpServletResponse servletResponse) {

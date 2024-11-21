@@ -5,5 +5,5 @@ package org.mate.token.context;
  *
  * @author liujinfeng
  */
-public record TokenContext(String token) {
+public record TokenContext(String token, String subject) {
 }

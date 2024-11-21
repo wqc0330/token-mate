@@ -1,8 +1,8 @@
 package org.mate.token.context;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.mate.token.utils.JwtUtils;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 /**
@@ -12,7 +12,7 @@ import java.util.Optional;
  */
 public class TokenContextHolder {
     private static final InheritableThreadLocal<TokenContext> TOKEN_LOCAL = new InheritableThreadLocal<>();
-    private static final InheritableThreadLocal<HttpServletResponse> RESPONSE_LOCAL  = new InheritableThreadLocal<>();
+    private static final InheritableThreadLocal<HttpServletResponse> RESPONSE_LOCAL = new InheritableThreadLocal<>();
 
     public static TokenContext getTokenContext() {
         return TOKEN_LOCAL.get();

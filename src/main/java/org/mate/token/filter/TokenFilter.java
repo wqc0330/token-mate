@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.mate.token.core.TokenMate.TOKEN_HEADER;
 
 /**
  * TokenFilter.
@@ -20,7 +20,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 public class TokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        Optional.ofNullable(request.getHeader("Token")).ifPresent(TokenContextHolder::setToken);
+        Optional.ofNullable(request.getHeader(TOKEN_HEADER)).ifPresent(TokenContextHolder::setToken);
         TokenContextHolder.setResponse(response);
         try {
             filterChain.doFilter(request, response);

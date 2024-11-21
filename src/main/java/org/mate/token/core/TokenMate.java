@@ -1,10 +1,7 @@
 package org.mate.token.core;
 
-import org.mate.token.context.TokenContext;
 import org.mate.token.context.TokenContextHolder;
 import org.mate.token.utils.JwtUtils;
-
-import javax.servlet.http.Cookie;
 
 /**
  * TokenMate.
@@ -17,9 +14,20 @@ public class TokenMate {
 
     public static void login(String subject) {
         TokenContextHolder.getHttpServletResponse().ifPresent(httpServletResponse -> {
-            String token = JwtUtils.createToken(subject, 30000L, "token_mate");
-            httpServletResponse.addCookie(new Cookie("Token", token));
+            String token = JwtUtils.createToken(subject, 30000L, SECRET);
+            httpServletResponse.addHeader(TOKEN_HEADER, token);
             TokenContextHolder.setToken(token);
         });
+    }
+
+    public static void logout(String subject) {
+        TokenContextHolder.getHttpServletResponse().ifPresent(httpServletResponse -> {
+            String token = JwtUtils.createToken(subject, 0L, SECRET);
+            httpServletResponse.addHeader(TOKEN_HEADER, token);
+        });
+    }
+
+    public static boolean verify(String subject, String token) {
+        return JwtUtils.parseToken(token, SECRET).equals(subject);
     }
 }

@@ -12,6 +12,12 @@ import java.util.Date;
  */
 public class Token {
 
+    public static void main(String[] args) {
+        new Token().test();
+    }
 
+    public void test() {
+        System.out.println("hello");
+    }
 
 }

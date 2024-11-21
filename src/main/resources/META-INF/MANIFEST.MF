@@ -1,0 +1,2 @@
+Premain-Class: org.mate.token.monitor.PreMain
+Can-Redefine-Classes: true

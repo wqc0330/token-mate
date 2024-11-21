@@ -1,11 +1,12 @@
 package org.mate.token.filter;
 
-import javax.servlet.Filter;
+import org.mate.token.context.TokenContextHolder;
+import org.springframework.web.filter.OncePerRequestFilter;
+
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -13,19 +14,14 @@ import java.io.IOException;
  *
  * @author liujinfeng
  */
-public class TokenFilter implements Filter {
+public class TokenFilter extends OncePerRequestFilter {
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
-
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-
-    }
-
-    @Override
-    public void destroy() {
-
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        try {
+            TokenContextHolder.setResponse(response);
+            filterChain.doFilter(request, response);
+        } finally {
+            TokenContextHolder.cleanAll();
+        }
     }
 }
